@@ -13,9 +13,10 @@ async function run(cmd) {
     const ROOT_TO_FOLDER = args.to.replace("C:", "/c")
 
     // Find gitignores
-    const findResult = await exec('find ' + currentFolder + ' -name ".gitignore"')
-    var folders = findResult.stdout.split(".gitignore\n")
-    folders.pop()
+    const findResult = await exec('find ' + currentFolder + ' -iname ".git" -o -iname ".gitignore"')
+    var output = findResult.stdout.split("\n")
+    output.pop()
+    const folders = [...new Set(output.map(folder => folder.replace(/.gitignore/g, "").replace(/.git/g, "")))]
     
     const promises = folders.map(folder => {
         const trimmedFolder = folder.replace(ROOT_FROM_FOLDER, "")
