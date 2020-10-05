@@ -2,7 +2,7 @@
 
 Copies the content of the current directory to another directory, while excluding the folders and files in the gitignores. Also working with submodules.
 
-It requires Cygwin installed to work
+It was made for Windows OS and requires Cygwin installed to work
 ```(location : C:\Program\ Files\Git\usr\bin\sh.exe)```
 
 ## Install dependencies
