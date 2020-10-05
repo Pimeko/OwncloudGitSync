@@ -6,17 +6,16 @@ async function run(cmd) {
 }
 
 (async () => {
-    const currentFolder = (await exec('pwd'))
-        .stdout
-        .replace(/(\r\n|\n|\r)/gm,"")
+    const currentFolder = (await exec('pwd')).stdout.replace(/(\r\n|\n|\r)/gm,"")
+
     const ROOT_FROM_FOLDER = currentFolder.replace(currentFolder.split('/').slice(-1)[0], "")
     const ROOT_TO_FOLDER = args.to.replace("C:", "/c")
 
     // Find gitignores
-    const findResult = await exec('find ' + currentFolder + ' -iname ".git" -o -iname ".gitignore"')
+    const findResult = await exec('find ' + currentFolder + ' -iname ".git"')
     var output = findResult.stdout.split("\n")
     output.pop()
-    const folders = [...new Set(output.map(folder => folder.replace(/.gitignore/g, "").replace(/.git/g, "")))]
+    const folders = [...new Set(output.map(folder => folder.replace(/.git/g, "")))]
     
     const promises = folders.map(folder => {
         const trimmedFolder = folder.replace(ROOT_FROM_FOLDER, "")
@@ -29,6 +28,7 @@ async function run(cmd) {
             + 'unzip -o zipfile.zip;'
             + 'rm zipfile.zip;')
         })
+        
     const results = await Promise.all(promises)
     results.forEach(result => {
         console.log(result.stdout)
