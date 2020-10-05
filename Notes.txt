@@ -1,0 +1,6 @@
+Trouver tous les dossiers avec un gitignore : 
+	find . -name ".gitignore"
+
+Repliquer le dossier :
+	mkdir -p /c/Users/benja/ownCloud/Projets\ Persos/BallPit/Assets/Unity-Starter; git archive --format zip --output /c/Users/benja/ownCloud/Projets\ Persos/BallPit/Assets/Unity-Starter/zipfile.zip master;cd /c/Users/benja/ownCloud/Projets\ Persos/BallPit/Assets/Unity-Starter; unzip -o zipfile.zip ; rm zipfile.zip
+
